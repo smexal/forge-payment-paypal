@@ -1,0 +1,39 @@
+<div class="adapter">
+    <div id="paypal-button" data-redirect="{$redirect_success}" data-token="{$token}"></div>
+    <script>
+        paypal.Button.render({
+
+            env: "{$env}", // Or "production"
+            client: {
+                sandbox:    "{$client_sandbox}",
+                production: "{$client_production}"
+            },
+            commit: true, // Show a "Pay Now" button
+            style: { 
+                size: 'small',
+                color: 'silver',
+                shape: 'rect'
+            },
+
+            payment: function(data, actions) {
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: "{$amount}", currency: "{$currency}" }
+                            }
+                        ]
+                    }
+                });
+            },
+
+            onAuthorize: function(data, actions) {
+                return actions.payment.execute().then(function(payment) {
+                    var button = $("#paypal-button");
+                    window.location.href = button.data('redirect') + '?token=' + button.data('token');
+                });
+            }
+
+        }, "#paypal-button");
+    </script>
+</div>
