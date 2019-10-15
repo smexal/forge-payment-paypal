@@ -54,7 +54,7 @@ class Adapter {
 
         return ['raw' => App::instance()->render(MOD_ROOT."forge-payment-paypal/templates/", 'paypal-button', [
             'env' => Settings::get('forge-payment-paypal-sandbox-mode') == 'on' ? 'sandbox' : 'production',
-            'currency' => 'CHF',
+            'currency' => Payment::getCurrency(),
             'amount' => $this->payment->getTotalAmount(),
             'client_sandbox' => Settings::get('forge-payment-paypal-client-id-sandbox'),
             'client_production' => Settings::get('forge-payment-paypal-client-id-production'),
