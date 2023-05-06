@@ -13,6 +13,7 @@ use \Forge\Loader;
 
 
 class Module extends AbstractModule {
+    public $settings;
 
     public function setup() {
         $this->settings = Settings::instance();
@@ -79,5 +80,3 @@ class Module extends AbstractModule {
     }
 
 }
-
-?>
